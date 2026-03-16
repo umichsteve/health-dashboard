@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       type: metric.name,
       value: point.qty ?? point.value ?? 0,
       unit: metric.units ?? null,
-      recorded_at: new Date(point.date).toISOString(),,
+      recorded_at: new Date(point.date).toISOString(),
     }))
   )
 
@@ -66,9 +66,9 @@ async function rebuildDailySummary(date: string) {
   await supabaseAdmin.from('daily_summaries').upsert({
     date,
     steps: sum('step_count'),
-    active_cal: sum('active_energy_burned'),
+    active_cal: sum('active_energy'),
     resting_hr: avg('resting_heart_rate'),
-    hrv: avg('heart_rate_variability_sdnn'),
+    hrv: avg('heart_rate_variability'),
     sleep_hours: sum('sleep_analysis'),
   }, { onConflict: 'date' })
 }
