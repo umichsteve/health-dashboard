@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       type: metric.name,
       value: point.qty ?? point.value ?? 0,
       unit: metric.units ?? null,
-      recorded_at: point.date,
+      recorded_at: new Date(point.date).toISOString(),,
     }))
   )
 
